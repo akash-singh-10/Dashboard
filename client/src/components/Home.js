@@ -66,7 +66,7 @@ const Home = () => {
 											<td>{element.mobile}</td>
 											<td className="d-flex justify-content-between">
 												<NavLink to={`/view/${element._id}`}><button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
-												<button className="btn btn-warning"><CreateIcon /></button>
+												<NavLink to={`/update/${element._id}`}><button className="btn btn-warning"><CreateIcon /></button></NavLink>
 												<button className="btn btn-danger"><DeleteIcon /></button>
 											</td>
 										</tr>

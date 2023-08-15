@@ -52,6 +52,17 @@ router.get("/getuser/:id", async(req, res) => {
     } catch(error) {
         res.status(422).send(error);
     }
-})
+});
+
+// update user data
+router.patch("/updateuser/:id", async(req,res)=>{
+    try {
+        const {id} = req.params;
+        const updatedUser = await users.findByIdAndUpdate(id,req.body,{new:true});
+        res.status(201).json(updatedUser);
+    } catch(error) {
+        res.status(422).send(error);
+    }
+});
 
 module.exports = router;
