@@ -2,6 +2,7 @@ import React from "react";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -9,7 +10,7 @@ const Home = () => {
       <div className="container">
 
         <div className="add_btn mt-3 mb-4">
-          <button className="btn btn-primary">Add Data</button>
+          <NavLink to="/register" className="btn btn-primary">Add Data</NavLink>
         </div>
 
         <table class="table">

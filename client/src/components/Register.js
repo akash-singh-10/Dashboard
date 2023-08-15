@@ -25,7 +25,7 @@ const Register = () => {
     const addInpData = async (e) => {
         e.preventDefault();
 
-        cosnt ({name, branch, age, email, mobile, address}) = inputVal;
+        const {name, branch, age, email, mobile, address} = inputVal;
 
         const res = await fetch("/register", {
             method: "POST",
@@ -45,10 +45,10 @@ const Register = () => {
 			console.log("error");
 		} else {
 			alert("DATA ADDED");
-			console.log("data addede");
+			console.log("data added");
 		}
 
-    }
+    };
 
     return (
     <div className="mt-5 container">

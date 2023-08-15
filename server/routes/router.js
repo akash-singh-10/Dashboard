@@ -18,7 +18,7 @@ router.post("/register", async (req,res) => {
         console.log(preuser);
 
         if(preuser) {
-            res.status(404).send("This user is already present");
+            res.status(404).json("This user is already present");
         } else {
             const addUser = new users({
                 name, branch, age, email, mobile, address  // object destructuring
