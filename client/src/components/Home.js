@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavLink } from "react-router-dom";
+import { addData, deleteData, updateData } from "./context/ContextProvider";
 
 const Home = () => {
-
+	const { userData, setUData } = useContext(addData);
+	const { upData, setUpData } = useContext(updateData);
+	const { dltData, setDltData } = useContext(deleteData);
 	const [getUserData, setUserData] = useState([]);
 	console.log(getUserData);
 
@@ -42,27 +45,53 @@ const Home = () => {
 			}
 		});
 
-		const deleteData = await res2.json();
+		const deletedData = await res2.json();
 
-		if (res2.status === 422 || !deleteData) {
+		if (res2.status === 422 || !deletedData) {
 			console.log("error");
 		} else {
-			alert("USER DELETED");
 			console.log("USER DELETED");
+			setDltData(deletedData)
 			getData();
 		}
 	}
 
 	return (
 		<>
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				<strong>Holy guacamole!</strong> You should check in on some of those fields below.
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-			<div className="mt-5">
+			{
+				userData ?
+					<>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<strong>{userData.name}</strong> Added Successfully.
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					</> : ""
+			}
+
+			{
+				upData ?
+					<>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<strong>{upData.name}</strong> Updated Successfully.
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					</> : ""
+			}
+
+			{
+				dltData ?
+					<>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<strong>{dltData.name}</strong> Deleted Successfully.
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					</> : ""
+			}
+
+			<div className="mt-3">
 				<div className="container">
 
-					<div className="add_btn mt-3 mb-4">
+					<div className="add_btn mt-2 mb-4">
 						<NavLink to="/register" className="btn btn-primary">Add Data</NavLink>
 					</div>
 

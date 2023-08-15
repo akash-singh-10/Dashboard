@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { addData } from "./context/ContextProvider";
+
 
 const Register = () => {
+
+	const {userData, setUData} = useContext(addData);
 
 	const navigate = useNavigate();
 
@@ -46,7 +50,7 @@ const Register = () => {
 			alert("ERROR");
 			console.log("error");
 		} else {
-			alert("DATA ADDED");
+			setUData(data);
 			console.log("data added");
 			navigate("/");
 		}

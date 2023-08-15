@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { NavLink, useParams, useNavigate, Navigate } from "react-router-dom";
+import { updateData } from "./context/ContextProvider";
 
 
 
 const Update = () => {
+
+	const {upData, setUpData} = useContext(updateData);
 
 	const navigate = useNavigate();
 	
@@ -69,7 +72,7 @@ const Update = () => {
 		if(res2.status === 422 || !data2) {
 			alert("ERROR");
 		} else {
-			alert("DATA UPDATED");
+			setUpData(data2);
 			navigate("/");
 		}
 	}
