@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EmailIcon from '@mui/icons-material/Email';
@@ -7,12 +7,16 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { useParams } from 'react-router-dom';
 
 const View = () => {
 
+	const {id} = useParams("");
+	const [getUserData, setUserData] = useState([]);
+
 	const getData = async (e) => {
 
-		const res = await fetch("/getdata", {
+		const res = await fetch(`/getuser/${id}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json"
@@ -31,9 +35,13 @@ const View = () => {
 
 	};
 
+	useEffect(()=>{
+		getData();
+	},[]);
+
 	return (
 		<div className='container'>
-			<h1 className='mt-5 mb-5' style={{ fontWeight: 350 }}>Welcome Akash Singh</h1>
+			<h1 className='mt-5 mb-5' style={{ fontWeight: 350 }}>Welcome {getUserData.name}</h1>
 
 			<Card sx={{ maxWidth: 700 }} variant="outlined">
 				<CardContent>
@@ -43,12 +51,12 @@ const View = () => {
 					</div>
 					<div className='left_view'>
 						<img src='C:/projects/Student Dashboard/client/src/components/profile.png' style={{ width: 55 }} alt='profile' />
-						<h3 className='mt-3'>Name: <span>Akash Singh</span></h3>
-						<h3 className='mt-3'>Branch: <span>Information Technology</span></h3>
-						<h3 className='mt-3'><CalendarMonthIcon /> age: <span>21</span></h3>
-						<h3 className='mt-3'><EmailIcon /> Email: <span>akashsingh@gmail.com</span></h3>
-						<h3 className='mt-3'><PhoneAndroidIcon /> Mobile: <span>1234567890</span></h3>
-						<h3 className='mt-3'><LocationOnIcon /> Address: <span>Pune</span></h3>
+						<h3 className='mt-3'>Name: <span>{getUserData.name}</span></h3>
+						<h3 className='mt-3'>Branch: <span>{getUserData.branch}</span></h3>
+						<h3 className='mt-3'><CalendarMonthIcon /> age: <span>{getUserData.age}</span></h3>
+						<h3 className='mt-3'><EmailIcon /> Email: <span>{getUserData.email}</span></h3>
+						<h3 className='mt-3'><PhoneAndroidIcon /> Mobile: <span>{getUserData.mobile}</span></h3>
+						<h3 className='mt-3'><LocationOnIcon /> Address: <span>{getUserData.address}</span></h3>
 					</div>
 				</CardContent>
 			</Card>
