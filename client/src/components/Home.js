@@ -1,59 +1,86 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
-  return (
-    <div className="mt-5">
-      <div className="container">
 
-        <div className="add_btn mt-3 mb-4">
-          <NavLink to="/register" className="btn btn-primary">Add Data</NavLink>
-        </div>
+	const [getUserData, setUserData] = useState([]);
+	console.log(getUserData);
 
-        <table class="table">
-          <thead>
-            <tr className="table-dark">
-              <th scope="col">Id</th>
-              <th scope="col">Name</th>
-              <th scope="col">Branch</th>
-              <th scope="col">Number</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Akash Singh</td>
-              <td>IT</td>
-              <td>1234567890</td>
-              <td className="d-flex justify-content-between">
-                <button className="btn btn-success"><RemoveRedEyeIcon /></button>
-                <button className="btn btn-warning"><CreateIcon /></button>
-                <button className="btn btn-danger"><DeleteIcon /></button>
-              </td>
-            </tr>
+	const getData = async (e) => {
 
-            <tr>
-              <th scope="row">2</th>
-              <td>Nitro Kumar</td>
-              <td>IT</td>
-              <td>1234567890</td>
-              <td className="d-flex justify-content-between">
-                <button className="btn btn-success"><RemoveRedEyeIcon /></button>
-                <button className="btn btn-warning"><CreateIcon /></button>
-                <button className="btn btn-danger"><DeleteIcon /></button>
-              </td>
-            </tr>
-            
-          </tbody>
-        </table>
+		const res = await fetch("/getdata", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
 
-      </div>
-    </div>
-  );
+		const data = await res.json();
+		console.log(data);
+
+		if (res.status === 404 || !data) {
+			console.log("error");
+		} else {
+			setUserData(data)
+			console.log("get data");
+		}
+
+	};
+
+	useEffect(() => {
+		getData();
+	}, []);
+
+	return (
+		<div className="mt-5">
+			<div className="container">
+
+				<div className="add_btn mt-3 mb-4">
+					<NavLink to="/register" className="btn btn-primary">Add Data</NavLink>
+				</div>
+
+				<table class="table">
+					<thead>
+						<tr className="table-dark">
+							<th scope="col">Id</th>
+							<th scope="col">Name</th>
+							<th scope="col">Branch</th>
+							<th scope="col">Email</th>
+							<th scope="col">Number</th>
+							<th scope="col"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							getUserData.map((element, id) => {
+								return (
+									<>
+										<tr>
+											<th scope="row">{id + 1}</th>
+											<td>{element.name}</td>
+											<td>{element.branch}</td>
+											<td>{element.email}</td>
+											<td>{element.mobile}</td>
+											<td className="d-flex justify-content-between">
+												<button className="btn btn-success"><RemoveRedEyeIcon /></button>
+												<button className="btn btn-warning"><CreateIcon /></button>
+												<button className="btn btn-danger"><DeleteIcon /></button>
+											</td>
+										</tr>
+									</>
+								)
+							})
+						}
+
+					</tbody>
+				</table>
+
+			</div>
+		</div>
+	);
 };
 
 export default Home;
