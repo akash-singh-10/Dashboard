@@ -8,7 +8,7 @@ router.post("/register", async (req,res) => {
     const {name, branch, age, email, mobile, address} = req.body;
 
     if(!name || !branch || !age || !email || !mobile || !address) {
-        res.status(404).send("Please fill all details");
+        res.status(422).send("Please fill all details");
     }
 
     try {
@@ -16,7 +16,7 @@ router.post("/register", async (req,res) => {
         console.log(preuser);
 
         if(preuser) {
-            res.status(404).json("This user is already present");
+            res.status(422).json("This user is already present");
         } else {
             const addUser = new users({
                 name, branch, age, email, mobile, address  // object destructuring
@@ -27,7 +27,7 @@ router.post("/register", async (req,res) => {
         }
 
     } catch(error) {
-        res.status(404).send(error);
+        res.status(422).send(error);
     }
 });
 
@@ -38,8 +38,20 @@ router.get("/getdata", async(req,res) => {
         res.status(201).json(userData);
         console.log(userData);
     } catch(error) {
-        res.status(404).send(error);
+        res.status(422).send(error);
     }
 });
+
+// get individual user
+router.get("/getuser/:id", async(req, res) => {
+    try {
+        const {id} = req.params;
+        const userIndividual = await users.findById({_id:id});
+        console.log(userIndividual);
+        res.status(201).json(userIndividual);
+    } catch(error) {
+        res.status(422).send(error);
+    }
+})
 
 module.exports = router;

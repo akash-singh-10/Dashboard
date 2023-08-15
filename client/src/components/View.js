@@ -9,29 +9,51 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 
 const View = () => {
-  return (
-    <div className='container'>
-      <h1 className='mt-5 mb-5' style={{fontWeight:350}}>Welcome Akash Singh</h1>
 
-      <Card sx={{ maxWidth: 700 }} variant="outlined">
-        <CardContent>
-          <div className='add_btn'>
-            <button className="btn btn-warning mx-2"><CreateIcon /></button>
-            <button className="btn btn-danger"><DeleteIcon /></button>
-          </div>
-          <div className='left_view'>
-            <img src='C:/projects/Student Dashboard/client/src/components/profile.png' style={{width: 55}} alt='profile' />
-            <h3 className='mt-3'>Name: <span>Akash Singh</span></h3>
-            <h3 className='mt-3'>Branch: <span>Information Technology</span></h3>
-            <h3 className='mt-3'><CalendarMonthIcon /> age: <span>21</span></h3>
-            <h3 className='mt-3'><EmailIcon /> Email: <span>akashsingh@gmail.com</span></h3>
-            <h3 className='mt-3'><PhoneAndroidIcon /> Mobile: <span>1234567890</span></h3>
-            <h3 className='mt-3'><LocationOnIcon /> Address: <span>Pune</span></h3>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
+	const getData = async (e) => {
+
+		const res = await fetch("/getdata", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		const data = await res.json();
+		console.log(data);
+
+		if (res.status === 422 || !data) {
+			console.log("error");
+		} else {
+			setUserData(data)
+			console.log("get data");
+		}
+
+	};
+
+	return (
+		<div className='container'>
+			<h1 className='mt-5 mb-5' style={{ fontWeight: 350 }}>Welcome Akash Singh</h1>
+
+			<Card sx={{ maxWidth: 700 }} variant="outlined">
+				<CardContent>
+					<div className='add_btn'>
+						<button className="btn btn-warning mx-2"><CreateIcon /></button>
+						<button className="btn btn-danger"><DeleteIcon /></button>
+					</div>
+					<div className='left_view'>
+						<img src='C:/projects/Student Dashboard/client/src/components/profile.png' style={{ width: 55 }} alt='profile' />
+						<h3 className='mt-3'>Name: <span>Akash Singh</span></h3>
+						<h3 className='mt-3'>Branch: <span>Information Technology</span></h3>
+						<h3 className='mt-3'><CalendarMonthIcon /> age: <span>21</span></h3>
+						<h3 className='mt-3'><EmailIcon /> Email: <span>akashsingh@gmail.com</span></h3>
+						<h3 className='mt-3'><PhoneAndroidIcon /> Mobile: <span>1234567890</span></h3>
+						<h3 className='mt-3'><LocationOnIcon /> Address: <span>Pune</span></h3>
+					</div>
+				</CardContent>
+			</Card>
+		</div>
+	)
 }
 
 export default View
