@@ -8,7 +8,7 @@ const Update = () => {
     const [inputVal, setInput] = useState({
         name: "",
         branch: "",
-        dob: "",
+        age: "",
         email: "",
         mobile: "",
         address: ""
@@ -43,8 +43,8 @@ const Update = () => {
           </div>
 
           <div className="mb-3 col-lg-6 col-md-6 col-12">
-            <label for="exampleInputPassword1" className="form-label">Date of Birth</label>
-            <input type="date" value={inputVal.dob} onChange={setData} name="dob" className="form-control" id="exampleInputPassword1" />
+            <label for="exampleInputPassword1" className="form-label">Age</label>
+            <input type="number" value={inputVal.age} onChange={setData} name="age" className="form-control" id="exampleInputPassword1" />
           </div>
 
           <div className="mb-3 col-lg-6 col-md-6 col-12">

@@ -23,7 +23,7 @@ const View = () => {
             <img src='C:/projects/Student Dashboard/client/src/components/profile.png' style={{width: 55}} alt='profile' />
             <h3 className='mt-3'>Name: <span>Akash Singh</span></h3>
             <h3 className='mt-3'>Branch: <span>Information Technology</span></h3>
-            <h3 className='mt-3'><CalendarMonthIcon /> DoB: <span>21/05/2001</span></h3>
+            <h3 className='mt-3'><CalendarMonthIcon /> age: <span>21</span></h3>
             <h3 className='mt-3'><EmailIcon /> Email: <span>akashsingh@gmail.com</span></h3>
             <h3 className='mt-3'><PhoneAndroidIcon /> Mobile: <span>1234567890</span></h3>
             <h3 className='mt-3'><LocationOnIcon /> Address: <span>Pune</span></h3>
