@@ -22,6 +22,34 @@ const Register = () => {
         })
     }
 
+    const addInpData = async (e) => {
+        e.preventDefault();
+
+        cosnt ({name, branch, age, email, mobile, address}) = inputVal;
+
+        const res = await fetch("/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              name, branch, age, email, mobile, address
+            })
+        });
+
+		const data = await res.json();
+		console.log(data);
+
+		if(res.status === 404 || !data) {
+			alert("ERROR");
+			console.log("error");
+		} else {
+			alert("DATA ADDED");
+			console.log("data addede");
+		}
+
+    }
+
     return (
     <div className="mt-5 container">
 
@@ -60,9 +88,7 @@ const Register = () => {
             <input type="text" value={inputVal.address} onChange={setData} name="address" className="form-control" id="exampleInputPassword1" />
           </div>
 
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+          <button type="submit" onClick={addInpData} className="btn btn-primary">Submit</button>
         </div>
       </form>
 
