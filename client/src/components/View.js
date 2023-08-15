@@ -7,10 +7,10 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
 
 const View = () => {
-
+	const navigate = useNavigate();
 	const {id} = useParams("");
 	const [getUserData, setUserData] = useState([]);
 
@@ -39,6 +39,25 @@ const View = () => {
 		getData();
 	},[]);
 
+	const deleteUser = async(id) => {
+		const res2 = await fetch(`/deleteuser/${id}`, {
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		const deleteData = await res2.json();
+
+		if (res2.status === 422 || !deleteData) {
+			console.log("error");
+		} else {
+			alert("USER DELETED");
+			console.log("USER DELETED");
+			navigate("/");
+		}
+	}
+
 	return (
 		<div className='container'>
 			<h1 className='mt-5 mb-5' style={{ fontWeight: 350 }}>Welcome {getUserData.name}</h1>
@@ -46,8 +65,8 @@ const View = () => {
 			<Card sx={{ maxWidth: 700 }} variant="outlined">
 				<CardContent>
 					<div className='add_btn'>
-						<button className="btn btn-warning mx-2"><CreateIcon /></button>
-						<button className="btn btn-danger"><DeleteIcon /></button>
+						<NavLink to={`/update/${getUserData._id}`}><button className="btn btn-warning mx-2"><CreateIcon /></button></NavLink>
+						<button className="btn btn-danger" onClick={()=>deleteUser(getUserData._id)}><DeleteIcon /></button>
 					</div>
 					<div className='left_view'>
 						<img src='C:/projects/Student Dashboard/client/src/components/profile.png' style={{ width: 55 }} alt='profile' />

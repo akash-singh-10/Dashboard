@@ -34,7 +34,7 @@ const Home = () => {
 		getData();
 	}, []);
 
-	const deleteUser = async(id) => {
+	const deleteUser = async (id) => {
 		const res2 = await fetch(`/deleteuser/${id}`, {
 			method: "DELETE",
 			headers: {
@@ -54,51 +54,57 @@ const Home = () => {
 	}
 
 	return (
-		<div className="mt-5">
-			<div className="container">
-
-				<div className="add_btn mt-3 mb-4">
-					<NavLink to="/register" className="btn btn-primary">Add Data</NavLink>
-				</div>
-
-				<table class="table">
-					<thead>
-						<tr className="table-dark">
-							<th scope="col">Id</th>
-							<th scope="col">Name</th>
-							<th scope="col">Branch</th>
-							<th scope="col">Email</th>
-							<th scope="col">Number</th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{
-							getUserData.map((element, id) => {
-								return (
-									<>
-										<tr>
-											<th scope="row">{id + 1}</th>
-											<td>{element.name}</td>
-											<td>{element.branch}</td>
-											<td>{element.email}</td>
-											<td>{element.mobile}</td>
-											<td className="d-flex justify-content-between">
-												<NavLink to={`/view/${element._id}`}><button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
-												<NavLink to={`/update/${element._id}`}><button className="btn btn-warning"><CreateIcon /></button></NavLink>
-												<button className="btn btn-danger" onClick={()=>deleteUser(element._id)}><DeleteIcon /></button>
-											</td>
-										</tr>
-									</>
-								)
-							})
-						}
-
-					</tbody>
-				</table>
-
+		<>
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+				<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
-		</div>
+			<div className="mt-5">
+				<div className="container">
+
+					<div className="add_btn mt-3 mb-4">
+						<NavLink to="/register" className="btn btn-primary">Add Data</NavLink>
+					</div>
+
+					<table class="table">
+						<thead>
+							<tr className="table-dark">
+								<th scope="col">Id</th>
+								<th scope="col">Name</th>
+								<th scope="col">Branch</th>
+								<th scope="col">Email</th>
+								<th scope="col">Number</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								getUserData.map((element, id) => {
+									return (
+										<>
+											<tr>
+												<th scope="row">{id + 1}</th>
+												<td>{element.name}</td>
+												<td>{element.branch}</td>
+												<td>{element.email}</td>
+												<td>{element.mobile}</td>
+												<td className="d-flex justify-content-between">
+													<NavLink to={`/view/${element._id}`}><button className="btn btn-success"><RemoveRedEyeIcon /></button></NavLink>
+													<NavLink to={`/update/${element._id}`}><button className="btn btn-warning"><CreateIcon /></button></NavLink>
+													<button className="btn btn-danger" onClick={() => deleteUser(element._id)}><DeleteIcon /></button>
+												</td>
+											</tr>
+										</>
+									)
+								})
+							}
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</>
 	);
 };
 
